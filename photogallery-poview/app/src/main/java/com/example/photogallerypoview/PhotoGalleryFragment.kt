@@ -71,8 +71,7 @@ class PhotoGalleryFragment : Fragment() {
         val searchView = searchItem.actionView as? SearchView
         Log.d(TAG, "onCreateOptionsMenu")
 
-
-        val listener = object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 Log.d(TAG, "query: $query")
                 photoGalleryViewModel.setQuery(query ?: "")
@@ -83,8 +82,6 @@ class PhotoGalleryFragment : Fragment() {
                 Log.d(TAG, "newText: $newText")
                 return false
             }
-        }
-
-        searchView?.setOnQueryTextListener(listener)
+        })
     }
 }
