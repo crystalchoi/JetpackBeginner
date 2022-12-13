@@ -16,7 +16,7 @@ class PhotoGalleryViewModel : ViewModel() {
     private val photoRepository = PhotoRepository()
 
     private val _galleryItems : MutableStateFlow<List<GalleryItem>>
-            = MutableStateFlow(emptyList())
+          = MutableStateFlow(emptyList())
 
     val galleryItem: StateFlow<List<GalleryItem>>
         get() = _galleryItems.asStateFlow()

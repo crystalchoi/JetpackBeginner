@@ -10,6 +10,7 @@ import retrofit2.create
 
 private const val TAG = "PhotoRepository"
 class PhotoRepository {
+//class PhotoRepository(private val flickrApi: FlickrApi) {
 
     private val flickrApi: FlickrApi
 
@@ -21,7 +22,7 @@ class PhotoRepository {
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
 
-        flickrApi = retrofit.create()
+        flickrApi = retrofit.create()   // for DI
 //        flickrApi = retrofit.create<FlickrApi>()
     }
 

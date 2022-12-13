@@ -13,6 +13,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.photogallerypoview.api.FlickrApi
 import com.example.photogallerypoview.databinding.FragmentPhotoGalleryBinding
+import com.example.photogallerypoview.ui.PhotoListAdapter
+import com.example.photogallerypoview.ui.PhotoViewHolder
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -46,6 +48,7 @@ class PhotoGalleryFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 photoGalleryViewModel.galleryItem.collect { items ->
                     Log.d(TAG, "Response Received: $items")
+                    binding.photoGrid.adapter = PhotoListAdapter(items)
                 }
             }
         }
