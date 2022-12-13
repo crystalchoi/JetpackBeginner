@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.photogallerypoview.api.FlickrApi
 import com.example.photogallerypoview.databinding.FragmentPhotoGalleryBinding
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -24,6 +28,8 @@ class PhotoGalleryFragment : Fragment() {
             "Cannot access binding because it is null, Is the view visible?"
         }
 
+    private val photoGalleryViewModel : PhotoGalleryViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,12 +42,12 @@ class PhotoGalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
         viewLifecycleOwner.lifecycleScope.launch {
-            val response = PhotoRepository().fetchPhotos()
-            Log.d(TAG, "response received: $response.size")
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                photoGalleryViewModel.galleryItem.collect { items ->
+                    Log.d(TAG, "Response Received: $items")
+                }
+            }
         }
     }
     override fun onDestroyView() {

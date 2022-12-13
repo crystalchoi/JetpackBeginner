@@ -1,11 +1,10 @@
 package com.example.photogallerypoview.api
 
+import com.example.photogallerypoview.api.GalleryItem
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class GalleryItem(
-    val title: String,
-    val id: String,
-    @Json(name = "url_s") val url: String
+data class PhotoResponse(
+    @Json(name = "photo") val galleryItems: List<GalleryItem>
 )
