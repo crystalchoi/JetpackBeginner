@@ -14,6 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 private const val TAG = "RestaurantViewModel"
+private const val BASE_URL = "https://restaurants-3ac64-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
 class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewModel() {
     private var restInterface: RestaurantsApiService
@@ -24,7 +25,7 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewMode
     init {
         val retrofit: Retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://restaurants-3ac64-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .baseUrl(BASE_URL)
             .build()
 
         restInterface = retrofit.create(RestaurantsApiService::class.java)
@@ -69,13 +70,17 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewMode
                     call: Call<List<Restaurant>>,
                     response: Response<List<Restaurant>>
                 ) {
+                    Log.d(TAG, "onResponse $response")
+
                     response.body()?.let { restaurants ->
-                        state.value = restaurants.restoreSelections()
                         Log.d(TAG, "response: $restaurants.size")
+                        state.value = restaurants.restoreSelections()
+
                     }
                 }
 
                 override fun onFailure(call: Call<List<Restaurant>>, t: Throwable) {
+                    Log.d(TAG, "onFailure")
                     t.printStackTrace()
                 }
             }
