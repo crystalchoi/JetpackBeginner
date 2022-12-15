@@ -21,10 +21,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.codingtroops.restaurantsapp.ui.theme.RestaurantsAppTheme
+import com.codingtroops.restaurantsapp.model.Restaurant
+
 
 @Composable
 fun RestaurantsScreen() {
     val viewModel: RestaurantsViewModel = viewModel()
+
+    viewModel.getRestaurants()
+
     LazyColumn(
         contentPadding = PaddingValues(
             vertical = 8.dp,

@@ -1,12 +1,37 @@
 package com.codingtroops.restaurantsapp
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.codingtroops.restaurantsapp.api.RestaurantsApiService
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import com.codingtroops.restaurantsapp.model.Restaurant
+import com.codingtroops.restaurantsapp.model.dummyRestaurants
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
+private const val TAG = "RestaurantViewModel"
 
 class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewModel() {
-    val state = mutableStateOf(dummyRestaurants.restoreSelections())
+    private var restInterface: RestaurantsApiService
+    val state = mutableStateOf(emptyList<Restaurant>())
+//    val state = mutableStateOf(dummyRestaurants.restoreSelections())
+
+
+    init {
+        val retrofit: Retrofit = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://restaurants-3ac64-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .build()
+
+        restInterface = retrofit.create(RestaurantsApiService::class.java)
+    }
+
+
+
 
     fun toggleFavorite(id: Int) {
         val restaurants = state.value.toMutableList()
@@ -34,6 +59,27 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewMode
             return restaurantsMap.values.toList()
         }
         return this
+    }
+
+    fun getRestaurants() {
+        Log.d(TAG, "getRestaurants()")
+        restInterface.getRestaurants().enqueue(
+            object : Callback<List<Restaurant>> {
+                override fun onResponse(
+                    call: Call<List<Restaurant>>,
+                    response: Response<List<Restaurant>>
+                ) {
+                    response.body()?.let { restaurants ->
+                        state.value = restaurants.restoreSelections()
+                        Log.d(TAG, "response: $restaurants.size")
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Restaurant>>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            }
+        )
     }
 
     companion object {

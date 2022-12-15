@@ -1,9 +1,19 @@
-package com.codingtroops.restaurantsapp
+package com.codingtroops.restaurantsapp.model
 
-data class Restaurant(val id: Int,
-                      val title: String,
-                      val description: String,
-                      var isFavorite: Boolean = false)
+import com.google.gson.annotations.SerializedName
+
+data class Restaurant(
+    @SerializedName("r_id")
+    val id: Int
+    , @SerializedName("r_title") val title: String
+    , @SerializedName("r_description") val description: String
+    , var isFavorite: Boolean = false
+)
+
+//data class Restaurant(val id: Int,
+//                      val title: String,
+//                      val description: String,
+//                      var isFavorite: Boolean = false)
 
 val dummyRestaurants = listOf(
     Restaurant(0, "Alfredo's dishes", "At Alfredo's, we provide the best seafood dishes."),
