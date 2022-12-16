@@ -27,8 +27,9 @@ import com.codingtroops.restaurantsapp.model.Restaurant
 @Composable
 fun RestaurantsScreen() {
     val viewModel: RestaurantsViewModel = viewModel()
-
-    viewModel.getRestaurants()
+//    LaunchedEffect(key1 = "request_restaurants") {
+//        viewModel.getRestaurants()
+//    }
 
     LazyColumn(
         contentPadding = PaddingValues(

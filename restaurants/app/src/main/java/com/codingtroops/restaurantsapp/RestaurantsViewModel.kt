@@ -20,6 +20,7 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewMode
     private var restInterface: RestaurantsApiService
     val state = mutableStateOf(emptyList<Restaurant>())
 //    val state = mutableStateOf(dummyRestaurants.restoreSelections())
+    private lateinit var restaurantCall : Call<List<Restaurant>>
 
 
     init {
@@ -29,6 +30,8 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewMode
             .build()
 
         restInterface = retrofit.create(RestaurantsApiService::class.java)
+
+        getRestaurants()
     }
 
 
@@ -62,9 +65,10 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewMode
         return this
     }
 
-    fun getRestaurants() {
+    private fun getRestaurants() {
         Log.d(TAG, "getRestaurants()")
-        restInterface.getRestaurants().enqueue(
+        restaurantCall = restInterface.getRestaurants()
+        restaurantCall.enqueue(
             object : Callback<List<Restaurant>> {
                 override fun onResponse(
                     call: Call<List<Restaurant>>,
@@ -85,6 +89,12 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewMode
                 }
             }
         )
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        restaurantCall.cancel()
     }
 
     companion object {
