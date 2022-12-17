@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp
+package com.codingtroops.restaurantsapp.model
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf

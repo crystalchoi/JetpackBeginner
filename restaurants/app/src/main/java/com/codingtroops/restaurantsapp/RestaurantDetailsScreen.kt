@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.codingtroops.restaurantsapp.model.Restaurant
+import com.codingtroops.restaurantsapp.model.RestaurantDetailsViewModel
 import com.codingtroops.restaurantsapp.ui.theme.RestaurantsAppTheme
 
 

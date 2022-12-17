@@ -23,11 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.codingtroops.restaurantsapp.ui.theme.RestaurantsAppTheme
 import com.codingtroops.restaurantsapp.model.Restaurant
+import com.codingtroops.restaurantsapp.model.RestaurantsViewModel
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @Composable
-fun RestaurantsScreen() {
+fun RestaurantsScreen(onItemClick: (Int) -> Unit = {}) {
     val viewModel: RestaurantsViewModel = viewModel()
 //    LaunchedEffect(key1 = "request_restaurants") {
 //        viewModel.getRestaurants()
@@ -40,15 +41,19 @@ fun RestaurantsScreen() {
         )
     ) {
         items(viewModel.state.value) { restaurant ->
-            RestaurantItem(restaurant) { id ->
-                viewModel.toggleFavorite(id)
-            }
+            RestaurantItem(item = restaurant
+                , onFavorteClick = { id -> viewModel.toggleFavorite(id) }
+                , onItemClick = onItemClick
+            )
         }
     }
 }
 
 @Composable
-fun RestaurantItem(item: Restaurant, onClick: (id: Int) -> Unit) {
+fun RestaurantItem(item: Restaurant
+           , onFavorteClick: (id: Int) -> Unit
+            , onItemClick: (id: Int) -> Unit
+) {
     val icon = if (item.isFavorite)
         Icons.Filled.Favorite
     else
@@ -56,6 +61,7 @@ fun RestaurantItem(item: Restaurant, onClick: (id: Int) -> Unit) {
     Card(
         elevation = 4.dp,
         modifier = Modifier.padding(8.dp)
+                            .clickable { onItemClick(item.id) }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -64,7 +70,7 @@ fun RestaurantItem(item: Restaurant, onClick: (id: Int) -> Unit) {
             RestaurantIcon(Icons.Filled.Place, Modifier.weight(0.15f))
             RestaurantDetails(item.title, item.description, Modifier.weight(0.7f))
             RestaurantIcon(icon, Modifier.weight(0.15f)) {
-                onClick(item.id)
+                onFavorteClick(item.id)
             }
         }
     }
