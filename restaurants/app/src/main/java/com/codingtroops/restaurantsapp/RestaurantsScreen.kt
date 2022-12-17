@@ -1,5 +1,6 @@
 package com.codingtroops.restaurantsapp
 
+import android.widget.HorizontalScrollView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.codingtroops.restaurantsapp.ui.theme.RestaurantsAppTheme
 import com.codingtroops.restaurantsapp.model.Restaurant
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @Composable
@@ -69,7 +71,7 @@ fun RestaurantItem(item: Restaurant, onClick: (id: Int) -> Unit) {
 }
 
 @Composable
-private fun RestaurantIcon(icon: ImageVector, modifier: Modifier, onClick: () -> Unit = { }) {
+fun RestaurantIcon(icon: ImageVector, modifier: Modifier, onClick: () -> Unit = { }) {
     Image(
         imageVector = icon,
         contentDescription = "Restaurant icon",
@@ -79,8 +81,10 @@ private fun RestaurantIcon(icon: ImageVector, modifier: Modifier, onClick: () ->
 }
 
 @Composable
-private fun RestaurantDetails(title: String, description: String, modifier: Modifier) {
-    Column(modifier = modifier) {
+fun RestaurantDetails(title: String, description: String, modifier: Modifier
+                      , horizontalAlignment: Alignment.Horizontal = Alignment.Start
+) {
+    Column(modifier = modifier, horizontalAlignment = horizontalAlignment) {
         Text(
             text = title,
             style = MaterialTheme.typography.h6
@@ -93,6 +97,14 @@ private fun RestaurantDetails(title: String, description: String, modifier: Modi
                 style = MaterialTheme.typography.body2
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RestaurantDetailPreview() {
+    RestaurantsAppTheme {
+        RestaurantDetails(title = "AAAARestaurant", description = "GADFASDFASDFAF", modifier = Modifier)
     }
 }
 
