@@ -10,6 +10,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import com.example.photogallerypoview.api.FlickrApi
 import com.example.photogallerypoview.databinding.FragmentPhotoGalleryBinding
 import com.example.photogallerypoview.ui.PhotoListAdapter
@@ -34,6 +36,12 @@ class PhotoGalleryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        val workRequest = OneTimeWorkRequest
+            .Builder(PollWorker::class.java)
+            .build()
+        WorkManager.getInstance(requireContext())
+            .enqueue(workRequest)
     }
 
     override fun onCreateView(
