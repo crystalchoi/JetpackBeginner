@@ -39,7 +39,7 @@ private fun RestaurantsApp() {
                 , arguments = listOf(navArgument("restaurant_id") {
                                                 type = NavType.IntType
             })
-            , deepLinks = listOf(navDeepLink { uriPattern = "www.restaurantsapp.com/{restaurant_id}" })
+//            , deepLinks = listOf(navDeepLink { uriPattern = "www.restaurantsapp.com/{restaurant_id}" })
         ) { navStackEntry ->
             val id = navStackEntry.arguments?.getInt("restaurant_id")
             RestaurantDetailsScreen()
