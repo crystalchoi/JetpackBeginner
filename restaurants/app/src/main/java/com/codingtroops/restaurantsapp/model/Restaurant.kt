@@ -13,7 +13,7 @@ data class Restaurant(
     val id: Int
     , @ColumnInfo(name = "r_title") @SerializedName("r_title") val title: String
     , @ColumnInfo(name = "r_description") @SerializedName("r_description") val description: String
-    , var isFavorite: Boolean = false
+    , @ColumnInfo(name = "is_favorite") val isFavorite: Boolean = false
 )
 
 //data class Restaurant(val id: Int,

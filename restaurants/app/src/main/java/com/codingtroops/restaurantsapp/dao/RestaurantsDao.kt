@@ -1,9 +1,7 @@
 package com.codingtroops.restaurantsapp.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.codingtroops.restaurantsapp.model.PartialRestaurant
 import com.codingtroops.restaurantsapp.model.Restaurant
 
 @Dao
@@ -13,4 +11,7 @@ interface RestaurantsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAll(restaurants: List<Restaurant>)
+
+    @Update(entity = Restaurant::class)
+    suspend fun update(partialRestaurant: PartialRestaurant)
 }
