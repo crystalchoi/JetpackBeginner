@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.codingtroops.restaurantsapp.RestaurantsApplication
 import com.codingtroops.restaurantsapp.api.RestaurantsApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,7 +15,11 @@ import kotlinx.coroutines.*
 import okhttp3.Dispatcher
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
+import java.lang.Exception
+import java.net.ConnectException
+import java.net.UnknownHostException
 
 
 const val BASE_URL = "https://restaurants-3ac64-default-rtdb.asia-southeast1.firebasedatabase.app/"
@@ -24,6 +29,7 @@ private const val TAG = "RestaurantViewModel"
 
 class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewModel() {
     private var restInterface: RestaurantsApiService
+    private var restaurantsDao =  RestaurantsDb.getDaoInstance(RestaurantsApplication.getAppContext())
     val state = mutableStateOf(emptyList<Restaurant>())
 //    val state = mutableStateOf(dummyRestaurants.restoreSelections())
 //    private lateinit var restaurantCall : Call<List<Restaurant>>
@@ -77,9 +83,21 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewMode
         return this
     }
 
-    private suspend fun getRemoteRestaurants() : List<Restaurant> {
+    private suspend fun getAllRestaurants() : List<Restaurant> {
         return withContext(Dispatchers.IO) {
-            restInterface.getRestaurants()
+            try {
+                val restaurants = restInterface.getRestaurants()
+                restaurantsDao.addAll(restaurants)
+                return@withContext restaurants
+            } catch(ex: Exception){
+                when (ex) {
+                    is ConnectException,
+                    is HttpException -> {
+                        return@withContext restaurantsDao.getAll()
+                    }
+                    else -> throw ex
+                }
+            }
         }
     }
 
@@ -87,7 +105,7 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle) : ViewMode
     private  fun getRestaurants() {
         Log.d(TAG, "getRestaurants()")
         viewModelScope.launch(errorHandler) {
-            val restaurants = getRemoteRestaurants()
+            val restaurants = getAllRestaurants()
             state.value = restaurants.restoreSelections()
         }
 
