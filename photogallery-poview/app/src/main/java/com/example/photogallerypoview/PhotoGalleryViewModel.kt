@@ -16,11 +16,16 @@ class PhotoGalleryViewModel : ViewModel() {
     private val photoRepository = PhotoRepository()
     private val preferencesRepository = PreferencesRepository.get()
 
-    private val _galleryItems : MutableStateFlow<List<GalleryItem>>
-          = MutableStateFlow(emptyList())
+//    private val _galleryItems : MutableStateFlow<List<GalleryItem>>
+//          = MutableStateFlow(emptyList())
 
-    val galleryItem: StateFlow<List<GalleryItem>>
-        get() = _galleryItems.asStateFlow()
+//    val galleryItem: StateFlow<List<GalleryItem>>
+//        get() = _galleryItems.asStateFlow()
+
+    private val _uiState: MutableStateFlow<PhotoGalleryUiState> = MutableStateFlow(PhotoGalleryUiState())
+    val uiState: StateFlow<PhotoGalleryUiState>
+        get() = _uiState.asStateFlow()
+
 
     init {
         viewModelScope.launch {
@@ -30,7 +35,10 @@ class PhotoGalleryViewModel : ViewModel() {
     //                val items = photoRepository.searchPhotos("llama")
                     val items = fetchGalleryItems(storedQuery)
                     Log.d(TAG, "response: ${items.size}")
-                    _galleryItems.value = items
+                    _uiState.update { oldState ->
+                        oldState.copy(images = items, query = storedQuery)
+                    }
+
                 } catch (ex: Exception) {
                     Log.e(TAG, "Failed to fetch gallery items", ex)
                 }
@@ -56,3 +64,9 @@ class PhotoGalleryViewModel : ViewModel() {
         }
     }
 }
+
+
+data class PhotoGalleryUiState(
+    val images: List<GalleryItem> = listOf(),
+    val query: String = ""
+)

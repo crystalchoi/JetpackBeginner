@@ -34,6 +34,7 @@ class PhotoGalleryFragment : Fragment() {
         }
 
     private val photoGalleryViewModel : PhotoGalleryViewModel by viewModels()
+    private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,9 +65,10 @@ class PhotoGalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                photoGalleryViewModel.galleryItem.collect { items ->
-                    Log.d(TAG, "Response Received: $items")
-                    binding.photoGrid.adapter = PhotoListAdapter(items)
+                photoGalleryViewModel.uiState.collect { newState ->
+                    Log.d(TAG, "Response Received: $newState.images")
+                    binding.photoGrid.adapter = PhotoListAdapter(newState.images)
+                    searchView?.setQuery(newState.query, false)
                 }
             }
         }
@@ -82,7 +84,7 @@ class PhotoGalleryFragment : Fragment() {
 
         val clearSearchItem: MenuItem = menu.findItem(R.id.menu_item_clear)
         val searchItem: MenuItem = menu.findItem(R.id.menu_item_search)
-        val searchView = searchItem.actionView as? SearchView
+        searchView = searchItem.actionView as? SearchView
         Log.d(TAG, "onCreateOptionsMenu")
 
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -97,6 +99,11 @@ class PhotoGalleryFragment : Fragment() {
                 return false
             }
         })
+    }
+
+    override fun onDestroyOptionsMenu() {
+        super.onDestroyOptionsMenu()
+        searchView = null
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
