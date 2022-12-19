@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.photogallerypoview.api.GalleryItem
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.example.photogallerypoview.model.PhotoRepository
+import com.example.photogallerypoview.model.PreferencesRepository
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 private const val TAG = "PhotoGalleryViewModel"
@@ -14,6 +14,7 @@ private const val TAG = "PhotoGalleryViewModel"
 class PhotoGalleryViewModel : ViewModel() {
 
     private val photoRepository = PhotoRepository()
+    private val preferencesRepository = PreferencesRepository.get()
 
     private val _galleryItems : MutableStateFlow<List<GalleryItem>>
           = MutableStateFlow(emptyList())
@@ -23,24 +24,27 @@ class PhotoGalleryViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            try {
-//                val items = photoRepository.fetchPhotos()
-//                val items = photoRepository.searchPhotos("llama")
-                val items = fetchGalleryItems("planets")
-                Log.d(TAG, "response: ${items.size}")
-                _galleryItems.value = items
-            } catch (ex: Exception) {
-                Log.e(TAG, "Failed to fetch gallery items", ex)
+            preferencesRepository.storedQuery.collectLatest { storedQuery ->
+                try {
+    //                val items = photoRepository.fetchPhotos()
+    //                val items = photoRepository.searchPhotos("llama")
+                    val items = fetchGalleryItems(storedQuery)
+                    Log.d(TAG, "response: ${items.size}")
+                    _galleryItems.value = items
+                } catch (ex: Exception) {
+                    Log.e(TAG, "Failed to fetch gallery items", ex)
+                }
             }
         }
     }
 
     fun setQuery(query: String) {
         viewModelScope.launch {
-            Log.d(TAG, "viewModelScope.launch")
-            val items = fetchGalleryItems(query)
-            Log.d(TAG, "setQuery: response: ${items.size}")
-            _galleryItems.value = items
+//            Log.d(TAG, "viewModelScope.launch")
+//            val items = fetchGalleryItems(query)
+//            Log.d(TAG, "setQuery: response: ${items.size}")
+//            _galleryItems.value = items
+            preferencesRepository.setStoreQuery(query)
         }
     }
 

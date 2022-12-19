@@ -38,7 +38,7 @@ class PreferencesRepository private constructor (private val dataStore: DataStor
         }
 
         fun get() : PreferencesRepository {
-            return INSTANCE ?: throw java.lang.IllegalStateException("PrefereneRepository must be initialized")
+            return INSTANCE ?: throw java.lang.IllegalStateException("PreferencesRepository must be initialized")
         }
     }
 }

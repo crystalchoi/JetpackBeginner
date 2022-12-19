@@ -1,4 +1,4 @@
-package com.example.photogallerypoview
+package com.example.photogallerypoview.model
 
 import android.util.Log
 import com.example.photogallerypoview.api.FlickrApi
