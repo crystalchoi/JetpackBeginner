@@ -19,13 +19,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import com.example.marsphotos.network.MarsApi
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.marsphotos.MarsPhotosApplication
+import com.example.marsphotos.network.MarsPhoto
 import kotlinx.coroutines.launch
+import java.io.IOException
+import com.example.marsphotos.data.MarsPhotosRepository
 
-class MarsViewModel : ViewModel() {
+
+class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : ViewModel() {
     /** The mutable State that stores the status of the most recent request */
-    var marsUiState: String by mutableStateOf("")
+    var marsUiState: MarsUiState by mutableStateOf(MarsUiState.Loading)
         private set
 
     /**
@@ -39,16 +47,37 @@ class MarsViewModel : ViewModel() {
      * Gets Mars photos information from the Mars API
      */
     fun getMarsPhotos() {
-        marsUiState = "Set the Mars API status response here!"
+        //marsUiState = "Set the Mars API status response here!"
 
         viewModelScope.launch {
-            val listResult = MarsApi.retrofitService.getPhotos()
-            marsUiState = listResult
+            marsUiState = try {
+//                val marsPhotoRepository = DefaultMarsPhotoRepository()
+//                val listResult = MarsApi.retrofitService.getPhotos()
+                val listResult = marsPhotosRepository.getMarsPhotos()
+                MarsUiState.Success(listResult)
+            } catch (e: IOException){
+                MarsUiState.Error
+            }
+
         }
 
     }
 
-//    private fun getMarsPhotos() {
-//
-//    }
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = (this[APPLICATION_KEY] as MarsPhotosApplication)
+                val marsPhotosRepository = application.container.marsPhotosRepository
+                MarsViewModel(marsPhotosRepository = marsPhotosRepository)
+            }
+        }
+    }
+
+}
+
+
+sealed interface MarsUiState{
+    data class Success(val photos: List<MarsPhoto>) : MarsUiState
+    object Loading : MarsUiState
+    object Error : MarsUiState
 }
