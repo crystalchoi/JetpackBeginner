@@ -91,7 +91,7 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
 fun ResultScreenPreview() {
     MarsPhotosTheme {
 //        ResultScreen(stringResource(R.string.placeholder_result))
-        ResultScreen(listOf(MarsPhoto(id = 1, imgSrc = "xxxx"), MarsPhoto(id = 2, imgSrc = "xxxx")))
+        ResultScreen(listOf(MarsPhoto(id = "1", imgSrc = "xxxx"), MarsPhoto(id = "2", imgSrc = "xxxx")))
     }
 }
 
