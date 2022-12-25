@@ -15,41 +15,24 @@
  */
 package com.example.marsphotos.ui.screens
 
-<<<<<<< HEAD
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-=======
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
->>>>>>> origin/develop
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-<<<<<<< HEAD
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.marsphotos.R
-=======
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.marsphotos.R
 import com.example.marsphotos.network.MarsPhoto
->>>>>>> origin/develop
 import com.example.marsphotos.ui.theme.MarsPhotosTheme
 
 @Composable
 fun HomeScreen(
-<<<<<<< HEAD
-    marsUiState: String,
-    modifier: Modifier = Modifier
-) {
-    ResultScreen(marsUiState, modifier)
-=======
     marsUiState: MarsUiState,
     modifier: Modifier = Modifier
 ) {
@@ -59,28 +42,17 @@ fun HomeScreen(
         is MarsUiState.Error -> ErrorScreen(modifier)
     }
 
->>>>>>> origin/develop
 }
 
 /**
  * The home screen displaying result of fetching photos.
  */
 @Composable
-<<<<<<< HEAD
-fun ResultScreen(marsUiState: String, modifier: Modifier = Modifier) {
-=======
 fun ResultScreen(photos: List<MarsPhoto>, modifier: Modifier = Modifier) {
->>>>>>> origin/develop
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier.fillMaxSize()
     ) {
-<<<<<<< HEAD
-        Text(marsUiState)
-    }
-}
-
-=======
         Text(text = photos.size.toString())
 
     }
@@ -114,14 +86,10 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
 
 
 
->>>>>>> origin/develop
 @Preview(showBackground = true)
 @Composable
 fun ResultScreenPreview() {
     MarsPhotosTheme {
-<<<<<<< HEAD
-        ResultScreen(stringResource(R.string.placeholder_result))
-=======
 //        ResultScreen(stringResource(R.string.placeholder_result))
         ResultScreen(listOf(MarsPhoto(id = "1", imgSrc = "xxxx"), MarsPhoto(id = "2", imgSrc = "xxxx")))
     }
@@ -140,6 +108,5 @@ fun LoadingScreenPreview() {
 fun ErrorScreenPreview() {
     MarsPhotosTheme {
         ErrorScreen()
->>>>>>> origin/develop
     }
 }

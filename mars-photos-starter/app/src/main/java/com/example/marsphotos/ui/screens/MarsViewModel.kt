@@ -19,12 +19,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-<<<<<<< HEAD
-
-class MarsViewModel : ViewModel() {
-    /** The mutable State that stores the status of the most recent request */
-    var marsUiState: String by mutableStateOf("")
-=======
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
@@ -40,7 +34,6 @@ import com.example.marsphotos.data.MarsPhotosRepository
 class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : ViewModel() {
     /** The mutable State that stores the status of the most recent request */
     var marsUiState: MarsUiState by mutableStateOf(MarsUiState.Loading)
->>>>>>> origin/develop
         private set
 
     /**
@@ -54,11 +47,6 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
      * Gets Mars photos information from the Mars API
      */
     fun getMarsPhotos() {
-<<<<<<< HEAD
-        marsUiState = "Set the Mars API status response here!"
-    }
-}
-=======
         //marsUiState = "Set the Mars API status response here!"
 
         viewModelScope.launch {
@@ -93,4 +81,3 @@ sealed interface MarsUiState{
     object Loading : MarsUiState
     object Error : MarsUiState
 }
->>>>>>> origin/develop
