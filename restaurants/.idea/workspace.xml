@@ -9,13 +9,64 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3601f081-6cf9-49fc-ab69-76611c35ff6f" name="Changes" comment="6장: Done" />
+    <list default="true" id="3601f081-6cf9-49fc-ab69-76611c35ff6f" name="Changes" comment="6장: Done">
+      <change afterPath="$PROJECT_DIR$/../Amphibians/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/androidTest/java/com/example/amphibians/ExampleInstrumentedTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/AmphibiansApp.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/AmphibiansApplication.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/MainActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/data/AmphibiansRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/data/AppContainer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/network/AmphibiansApiService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/network/AnimalData.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/ui/screen/AmphibiansViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/ui/screen/HomeScreen.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/ui/theme/Color.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/ui/theme/Shape.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/ui/theme/Theme.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/java/com/example/amphibians/ui/theme/Type.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/app/src/test/java/com/example/amphibians/ExampleUnitTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Amphibians/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2022_12_17_10_11_PM_[Changes]/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2022_12_17_10_11_PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2022_12_17_10_11_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/crystal/.android/avd/Pixel_4_API_31.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/crystal/.android/avd/Pixel_6_Pro_API_32.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -87,31 +138,8 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="DEBUGGER_TYPE" value="Auto" />
-      <Auto>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Auto>
-      <Hybrid>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Hybrid>
+      <option name="DEBUGGER_TYPE" value="Java" />
       <Java />
-      <Native>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_PROFILING_ENABLED" value="false" />
