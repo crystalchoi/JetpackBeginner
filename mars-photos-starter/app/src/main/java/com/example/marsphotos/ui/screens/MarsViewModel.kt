@@ -53,8 +53,8 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
             marsUiState = try {
 //                val marsPhotoRepository = DefaultMarsPhotoRepository()
 //                val listResult = MarsApi.retrofitService.getPhotos()
-                val result = marsPhotosRepository.getMarsPhotos()[0]
-                MarsUiState.Success(listOf(result))
+//                val result = marsPhotosRepository.getMarsPhotos()[0]
+                MarsUiState.Success(marsPhotosRepository.getMarsPhotos())
             } catch (e: IOException){
                 MarsUiState.Error
             }
