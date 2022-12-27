@@ -1,8 +1,10 @@
 package com.example.bookshelf.model.google.search
 
 
+import com.example.bookshelf.model.google.volume.ImageLinks
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 
 @Serializable
 data class VolumeInfo(

@@ -1,7 +1,11 @@
 package com.example.bookshelf.ui.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -52,21 +56,20 @@ fun HomeScreen(
 fun ResultScreen(books: GoogleBook,
                  imageList: List<ImageLinks>,
                  modifier: Modifier = Modifier) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier.fillMaxSize()
+
+    LazyVerticalGrid(columns =  GridCells.Adaptive(minSize = 150.dp)
+        ,  modifier = modifier.fillMaxWidth()
+        , contentPadding = PaddingValues(4.dp)
     ) {
-        Text(books.kind, fontSize = 24.sp)
-        Text(books.totalItems.toString(), fontSize = 24.sp)
-        BookCard(books.items[0], imageList[0])
+        items(books.items.size) { index ->
+            BookCard(books.items[index], imageList[index])
+        }
     }
 }
 
 
 @Composable
 fun BookCard(item: Item, imageLinks: ImageLinks, modifier: Modifier = Modifier) {
-    //GoogleBook.items[0].volumeInfo.title/imageLinks.smallThumbnail/thumbnail
     var showDescription by remember { mutableStateOf(false) }
 
     Card(modifier = modifier.fillMaxHeight()
@@ -83,42 +86,51 @@ fun BookCard(item: Item, imageLinks: ImageLinks, modifier: Modifier = Modifier) 
                 , fontWeight = FontWeight.Bold
                 , textAlign = TextAlign.Center
 //                , fontSize = 24.sp
-                , modifier = Modifier.padding(top = 1.dp).clickable {
-                    showDescription = !showDescription
-                })
+                , modifier = Modifier
+                    .padding(top = 1.dp)
+                    .clickable {
+                        showDescription = !showDescription
+                    })
 
-            AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(imageLinks.smallThumbnail)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = stringResource(R.string.book_smallThumbnail),
-                contentScale = ContentScale.FillWidth,
-    //                contentScale = ContentScale.Crop,
-    //                contentScale = ContentScale.FillBounds,
-                error = painterResource(R.drawable.ic_baseline_broken_image_24),
-    //                placeholder = painterResource(R.drawable.ic_baseline_downloading_24),
-                modifier = Modifier.fillMaxWidth().clickable {
-                    showDescription = !showDescription
-                }
-            )
-            AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(imageLinks.thumbnail)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = stringResource(R.string.book_smallThumbnail),
-                contentScale = ContentScale.FillWidth,
-                //                contentScale = ContentScale.Crop,
-                //                contentScale = ContentScale.FillBounds,
-                error = painterResource(R.drawable.ic_baseline_broken_image_24),
-                //                placeholder = painterResource(R.drawable.ic_baseline_downloading_24),
-                modifier = Modifier.fillMaxWidth().clickable {
-                    showDescription = !showDescription
-                }
-            )
+//            val imageSrc = if (imageLinks.smallThumbnail.isNotEmpty()) {
+//                imageLinks.smallThumbnail
+//            } else if (imageLinks.thumbnail.isNotEmpty()) {
+//                imageLinks.thumbnail
+//            } else {
+//                ""
+//            }
+
+//            if (imageSrc == "") {
+//                Image(painter = painterResource(R.drawable.ic_baseline_broken_image_24)
+//                    , contentDescription = null
+//                    , modifier = Modifier.width(40.dp).height(40.dp))
+//            } else {
+//                imageSrc.replace(
+//                    oldValue = "http://",
+//                    newValue = "https://"
+//                )
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(imageLinks.smallThumbnail.replace(
+                            oldValue = "http://",
+                            newValue = "https://"
+                        ))
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = stringResource(R.string.book_smallThumbnail),
+                    contentScale = ContentScale.FillWidth,
+                    //                contentScale = ContentScale.Crop,
+                    //                contentScale = ContentScale.FillBounds,
+                    error = painterResource(R.drawable.ic_baseline_broken_image_24),
+                    //                placeholder = painterResource(R.drawable.ic_baseline_downloading_24),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            showDescription = !showDescription
+                        }
+                )
+//            }
         }
-
 
     }
 

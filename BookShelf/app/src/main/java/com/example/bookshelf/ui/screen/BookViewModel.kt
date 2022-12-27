@@ -31,20 +31,11 @@ class BookViewModel(private val bookRepository: BookRepository) : ViewModel() {
             uiState = try {
                 val response = bookRepository.getBooks()
                 val  imageList: MutableList<ImageLinks> = emptyList<ImageLinks>().toMutableList()
-                runBlocking {
-                    response.items.forEach { item ->
-
-                        withContext(Dispatchers.IO) {
-                            val volumeResponse = bookRepository.getVolume(item.id)
-    //                        Log.d("Volume", "${volumeResponse.id}, ${volumeResponse.volumeInfo.imageLinks.smallThumbnail}")
-
-                            imageList.add(volumeResponse.volumeInfo.imageLinks)
-                        }
-                    }
+                response.items.forEach { item ->
+                        Log.i("Volume", "${item.id}, ${item.volumeInfo.imageLinks.smallThumbnail}")
+                        imageList.add(item.volumeInfo.imageLinks)
                 }
-
                 BookUiState.Success(books = response, imageList = imageList)
-
             } catch(e: IOException) {
                 BookUiState.Error
             } catch(e: HttpException) {
