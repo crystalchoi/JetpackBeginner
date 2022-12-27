@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -42,11 +43,10 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
-        is BookUiState.Success ->     ResultScreen(uiState.books, uiState.imageList, modifier)
+        is BookUiState.Success ->    ResultScreen(uiState.books, uiState.imageList, modifier)
         is BookUiState.Error ->      ErrorScreen(retryAction, modifier)
-        is BookUiState.Loading ->     LoadingScreen(modifier)
+        is BookUiState.Loading ->    LoadingScreen(modifier)
     }
-
 }
 
 /**
@@ -142,7 +142,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center,
         modifier = modifier.fillMaxSize()
     ) {
-
+        CircularProgressIndicator(modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally))
     }
 }
 
@@ -156,10 +156,20 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
 
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun ResultScreenPreview() {
     BookShelfTheme {
 //        ResultScreen(GoogleBook(kind = "kind", totalItems = 200, items = listOf(null)))
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun LoadingScreenPreview() {
+    BookShelfTheme {
+        LoadingScreen()
     }
 }
