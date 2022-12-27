@@ -10,7 +10,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bookshelf.ui.BookShelfApp
+import com.example.bookshelf.ui.screen.BookViewModel
 import com.example.bookshelf.ui.theme.BookShelfTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,14 +20,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BookShelfTheme {
-                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colors.background
-//                ) {
-//                    Greeting("Android")
-//                }
-                BookShelfApp()
+                val viewModel: BookViewModel = viewModel(factory = BookViewModel.Factory)
+                BookShelfApp(viewModel = viewModel)
             }
         }
     }

@@ -7,10 +7,7 @@ import retrofit2.http.GET
 
 interface AmphibiansApiService {
     @GET("amphibians")
-    suspend fun getInfos() : List<AnimalData>
+    suspend fun getInfos() :  List<AnimalData>
 }
 
 
-object AmphibiansApi {
-
-}

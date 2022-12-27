@@ -1,5 +1,6 @@
 package com.example.bookshelf.network
 
+import com.example.bookshelf.model.google.GoogleBook
 import retrofit2.http.GET
 
 
@@ -12,10 +13,12 @@ import retrofit2.http.GET
 //    "thumbnail": "http://books.google.com/books/content?id=mNvL-eJMUgAC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
 //},
 
-private const val BASE_URL = "https://www.googleapis.com/books"
 
-interface GoogleBooksApiService() {
-    @GET("photos")
-    suspend fun getPhotos() : List<MarsPhoto>
+
+interface BookApiService {
+    @GET("v1/volumes?q=cicero")
+//    @GET("amphibians")
+//    suspend fun getBooks() : String
+    suspend fun getBooks() : GoogleBook
 }
 

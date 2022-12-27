@@ -6,13 +6,13 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bookshelf.R
 import com.example.bookshelf.ui.screen.BookViewModel
+import com.example.bookshelf.ui.screen.HomeScreen
 
 
 @Composable
-fun BookShelfApp(modifier: Modifier = Modifier) {
+fun BookShelfApp(viewModel: BookViewModel, modifier: Modifier = Modifier) {
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -24,9 +24,10 @@ fun BookShelfApp(modifier: Modifier = Modifier) {
                 .padding(it),
             color = MaterialTheme.colors.background
         ) {
-            val marsViewModel: BookViewModel = viewModel()
+
             HomeScreen(
-                uiState = bookViewModel.uiState
+                uiState = viewModel.uiState, retryAction = viewModel::getBooks  // {}
+
             )
         }
     }
