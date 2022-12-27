@@ -2,5 +2,6 @@
     <string name="app_name">Amphibians</string>
     <string name="amphibians_photo">amphibians_photo</string>
     <string name="loading">loading...</string>
-    <string name="loading_failed">loading failed</string>
+    <string name="loading_failed">loading failed...</string>
+    <string name="retry">Retry</string>
 </resources>

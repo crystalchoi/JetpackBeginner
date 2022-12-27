@@ -23,7 +23,8 @@ fun AmphibiansApp(viewModel: AmphibiansViewModel, modifier: Modifier = Modifier)
             color = MaterialTheme.colors.background
         ) {
             HomeScreen(
-                uiState = viewModel.uiState
+                uiState = viewModel.uiState,
+                retryAction = viewModel::getInfos
             )
         }
     }

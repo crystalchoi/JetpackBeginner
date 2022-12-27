@@ -27,6 +27,7 @@ class AmphibiansViewModel(private val amphibiansRepository: AmphibiansRepository
     fun getInfos() {
         //marsUiState = "Set the Mars API status response here!"
         viewModelScope.launch {
+            uiState = AmphibiansUiState.Loading
             uiState = try {
                 AmphibiansUiState.Success(amphibiansRepository.getInfos())
             } catch (e: IOException) {
