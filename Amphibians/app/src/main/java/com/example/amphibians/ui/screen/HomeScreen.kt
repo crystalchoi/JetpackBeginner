@@ -105,7 +105,7 @@ fun AnimalCard(animalData : AnimalData, modifier: Modifier = Modifier) {
                 , fontWeight = FontWeight.Bold
                 , textAlign = TextAlign.Center
 //                , fontSize = 24.sp
-                , modifier = Modifier.padding(all = 1.dp).clickable {
+                , modifier = Modifier.padding(top = 16.dp).clickable {
                     expandedDescription = !expandedDescription
             })
 //            Spacer(Modifier.height(8.dp))
@@ -181,7 +181,8 @@ fun AnimalCardPreview() {
         AnimalCard(AnimalData(name = "Great Basin Spadefoot"
             , type = "Toad"
             , description = "This toad spends most of its life underground due to the arid desert conditions in which it lives. Spadefoot toads earn the name because of their hind legs which are wedged to aid in digging. They are typically grey, green, or brown with dark spots."
-            , imgSrc = "https://developer.android.com/codelabs/basic-android-kotlin-compose-amphibians-app/img/great-basin-spadefoot.png"))
+            , imgSrc = "https://developer.android.com/codelabs/basic-android-kotlin-compose-amphibians-app/img/great-basin-spadefoot.png"
+        ))
     }
 }
 

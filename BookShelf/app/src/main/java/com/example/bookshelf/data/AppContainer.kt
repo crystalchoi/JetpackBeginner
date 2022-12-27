@@ -18,7 +18,11 @@ class DefaultAppContainer : AppContainer {
 
     @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
     private val retrofit = Retrofit.Builder()
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(Json {
+                isLenient = true // Json 큰따옴표 느슨하게 체크.
+                ignoreUnknownKeys = true // Field 값이 없는 경우 무시
+                coerceInputValues = true // "null" 이 들어간경우 default Argument 값으로 대체
+        }.asConverterFactory("application/json".toMediaType()))
         .baseUrl(BASE_URL)
         .build()
 

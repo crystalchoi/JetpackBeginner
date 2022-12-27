@@ -1,4 +1,4 @@
-package com.example.bookshelf.model.google
+package com.example.bookshelf.model.google.volume
 
 
 import kotlinx.serialization.SerialName
@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class IndustryIdentifier(
     @SerialName("identifier")
-    val identifier: String,
+    val identifier: String = "",
     @SerialName("type")
-    val type: String
+    val type: String = ""
 )

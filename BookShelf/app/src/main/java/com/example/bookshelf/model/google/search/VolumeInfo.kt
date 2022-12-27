@@ -1,4 +1,4 @@
-package com.example.bookshelf.model.google
+package com.example.bookshelf.model.google.search
 
 
 import kotlinx.serialization.SerialName

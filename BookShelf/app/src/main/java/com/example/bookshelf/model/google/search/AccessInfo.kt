@@ -1,4 +1,4 @@
-package com.example.bookshelf.model.google
+package com.example.bookshelf.model.google.search
 
 
 import kotlinx.serialization.SerialName
@@ -7,23 +7,23 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AccessInfo(
     @SerialName("accessViewStatus")
-    val accessViewStatus: String,
+    val accessViewStatus: String = "",
     @SerialName("country")
-    val country: String,
+    val country: String = "",
     @SerialName("embeddable")
-    val embeddable: Boolean,
+    val embeddable: Boolean = false,
     @SerialName("epub")
-    val epub: Epub,
+    val epub: Epub? = null,
     @SerialName("pdf")
-    val pdf: Pdf,
+    val pdf: Pdf? = null,
     @SerialName("publicDomain")
-    val publicDomain: Boolean,
+    val publicDomain: Boolean = false,
     @SerialName("quoteSharingAllowed")
-    val quoteSharingAllowed: Boolean,
+    val quoteSharingAllowed: Boolean = false,
     @SerialName("textToSpeechPermission")
-    val textToSpeechPermission: String,
+    val textToSpeechPermission: String = "",
     @SerialName("viewability")
-    val viewability: String,
+    val viewability: String = "",
     @SerialName("webReaderLink")
-    val webReaderLink: String
+    val webReaderLink: String = ""
 )

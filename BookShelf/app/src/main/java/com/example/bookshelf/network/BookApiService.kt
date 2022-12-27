@@ -1,11 +1,15 @@
 package com.example.bookshelf.network
 
-import com.example.bookshelf.model.google.GoogleBook
+import com.example.bookshelf.model.google.search.GoogleBook
+import com.example.bookshelf.model.google.search.Item
+import com.example.bookshelf.model.google.volume.DirectVolume
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 
 //  https://www.googleapis.com/books/v1/volumes?q=cicero
 //  https://www.googleapis.com/books/v1/volumes/<volume_id>
+//  https://www.googleapis.com/books/v1/volumes/022xAAAAIAAJ
 
 // In "volumeInfo"
 // "imageLinks": {
@@ -20,5 +24,8 @@ interface BookApiService {
 //    @GET("amphibians")
 //    suspend fun getBooks() : String
     suspend fun getBooks() : GoogleBook
+
+    @GET("v1/volumes/{volume_id}")
+    suspend fun getVolume(@Path("volume_id") id: String) : DirectVolume
 }
 
