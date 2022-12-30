@@ -47,6 +47,29 @@ class BookViewModel(private val bookRepository: BookRepository) : ViewModel() {
         }
     }
 
+    fun searchBooks(query: String) {
+        if (query.isEmpty() || query.isBlank())
+            return
+
+        viewModelScope.launch {
+            uiState = try {
+                val response = bookRepository.searchBooks(query)
+                val  imageList: MutableList<ImageLinks> = emptyList<ImageLinks>().toMutableList()
+                response.items.forEach { item ->
+                    Log.i("Volume", "${item.id}, ${item.volumeInfo.imageLinks.smallThumbnail}")
+                    imageList.add(item.volumeInfo.imageLinks)
+                }
+                BookUiState.Success(books = response, imageList = imageList)
+            } catch(e: IOException) {
+                BookUiState.Error
+            } catch(e: HttpException) {
+                BookUiState.Error
+            } catch(e: HttpRetryException) {  //??
+                BookUiState.Error
+            }
+        }
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

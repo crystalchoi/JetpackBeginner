@@ -7,9 +7,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GoogleBook(
     @SerialName("items")
-    val items: List<Item>,
+    val items: List<Item> = listOf(),
     @SerialName("kind")
-    val kind: String,
+    val kind: String = "",
     @SerialName("totalItems")
-    val totalItems: Int
+    val totalItems: Int = 0
 )

@@ -11,7 +11,7 @@ data class VolumeInfo(
     @SerialName("authors")
     val authors: List<String> = listOf(),
     @SerialName("averageRating")
-    val averageRating: Int = 0,
+    val averageRating: Float = 0.0f,
     @SerialName("canonicalVolumeLink")
     val canonicalVolumeLink: String = "",
     @SerialName("categories")

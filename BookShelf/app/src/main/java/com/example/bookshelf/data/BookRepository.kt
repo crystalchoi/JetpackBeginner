@@ -8,6 +8,7 @@ import com.example.bookshelf.network.BookApiService
 interface BookRepository {
 //    suspend fun getBooks() : String
     suspend fun getBooks() : GoogleBook
+    suspend fun searchBooks(query: String) : GoogleBook
     suspend fun getVolume(id: String) : DirectVolume
 }
 
@@ -16,6 +17,9 @@ class DefaultBookRepository(val retrofitService: BookApiService) : BookRepositor
         return retrofitService.getBooks()
     }
 
+    override suspend fun searchBooks(query: String): GoogleBook {
+        return retrofitService.searchBooks(query)
+    }
     override suspend fun getVolume(id : String): DirectVolume {
         return retrofitService.getVolume(id = id)
     }

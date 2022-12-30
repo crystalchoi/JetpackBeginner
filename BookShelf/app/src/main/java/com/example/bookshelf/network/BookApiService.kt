@@ -5,6 +5,8 @@ import com.example.bookshelf.model.google.search.Item
 import com.example.bookshelf.model.google.volume.DirectVolume
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
+import java.util.*
 
 
 //  https://www.googleapis.com/books/v1/volumes?q=cicero
@@ -20,10 +22,16 @@ import retrofit2.http.Path
 
 
 interface BookApiService {
-    @GET("v1/volumes?q=cicero")
+    @GET("v1/volumes?q=Little%2dPrince")
 //    @GET("amphibians")
 //    suspend fun getBooks() : String
     suspend fun getBooks() : GoogleBook
+
+    @GET("v1/volumes")   //  "v1/volumes?q=cicero"
+    suspend fun searchBooks(
+        @Query("q") query: String,
+//        @Query("since") since: Date = ""
+    ) : GoogleBook
 
     @GET("v1/volumes/{volume_id}")
     suspend fun getVolume(@Path("volume_id") id: String) : DirectVolume
