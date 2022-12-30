@@ -75,6 +75,15 @@ fun SearchIcon(iconTint: Color) {
 }
 
 @Composable
+fun CancelIcon(iconTint: Color) {
+    Icon(
+        painter = painterResource(id = R.drawable.ic_cancel),
+        contentDescription = "search icon",
+        tint = iconTint
+    )
+}
+
+@Composable
 fun CollapsedSearchView(
     onExpandedChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -136,12 +145,18 @@ fun ExpandedSearchView(
                 tint = tint
             )
         }
+        IconButton(onClick = { textFieldValue = TextFieldValue("", TextRange(0))}) {
+            CancelIcon(iconTint = tint)
+        }
         TextField(
             value = textFieldValue,
             onValueChange = {
                 textFieldValue = it
                 onSearchDisplayChanged(it.text)
             },
+//            leadingIcon = {
+//                SearchIcon(iconTint = tint)
+//            },
             trailingIcon = {
                 SearchIcon(iconTint = tint)
             },
