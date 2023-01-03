@@ -14,20 +14,6 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "SQLDemo"
-include ':app'
-include ':sdk'
+package com.example.inventory.data
+
+class OfflineItemsRepository : ItemsRepository

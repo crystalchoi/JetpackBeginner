@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
+package com.example.inventory.data
+
+import android.content.Context
+
+/**
+ * App container for Dependency injection.
+ */
+interface AppContainer {
+    val itemsRepository: ItemsRepository
+}
+
+/**
+ * [AppContainer] implementation that provides instance of [OfflineItemsRepository]
+ */
+class AppDataContainer(private val context: Context) : AppContainer {
+    /**
+     * Implementation for [ItemsRepository]
+     */
+    override val itemsRepository: ItemsRepository by lazy {
+        OfflineItemsRepository()
     }
 }
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "SQLDemo"
-include ':app'
-include ':sdk'

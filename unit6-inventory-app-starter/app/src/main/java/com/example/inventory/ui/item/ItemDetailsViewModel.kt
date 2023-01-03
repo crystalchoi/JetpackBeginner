@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
+package com.example.inventory.ui.item
+
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+
+/**
+ * ViewModel to retrieve, update and delete an item from the data source.
+ */
+class ItemDetailsViewModel(
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
+
+    private val itemId: Int = checkNotNull(savedStateHandle[ItemDetailsDestination.itemIdArg])
+
+    companion object {
+        private const val TIMEOUT_MILLIS = 5_000L
     }
 }
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "SQLDemo"
-include ':app'
-include ':sdk'

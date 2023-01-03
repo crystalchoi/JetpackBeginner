@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
+package com.example.inventory.ui.home
+
+import androidx.lifecycle.ViewModel
+import com.example.inventory.data.Item
+
+/**
+ * View Model to retrieve all items in the Room database.
+ */
+class HomeViewModel : ViewModel() {
+
+    companion object {
+        private const val TIMEOUT_MILLIS = 5_000L
     }
 }
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "SQLDemo"
-include ':app'
-include ':sdk'
+
+/**
+ * Ui State for HomeScreen
+ */
+data class HomeUiState(val itemList: List<Item> = listOf())
