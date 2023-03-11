@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         val imageCapture = imageCapture ?: return
 
         // Create time stamped name and MediaStore entry.
-//        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.KOREA)
+        // val name = SimpleDateFormat(FILENAME_FORMAT, Locale.KOREA)
         val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
             .format(System.currentTimeMillis())
         val contentValues = ContentValues().apply {
