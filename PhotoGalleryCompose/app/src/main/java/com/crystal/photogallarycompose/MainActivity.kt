@@ -19,6 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.crystal.photogallarycompose.data.GalleryItem
+import com.crystal.photogallarycompose.ui.HomeScreen
 import com.crystal.photogallarycompose.ui.PhotoCell
 import com.crystal.photogallarycompose.ui.theme.PhotogallaryComposeTheme
 import kotlinx.coroutines.*
@@ -42,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    PhotoCell()
+                    HomeScreen(viewModel.photos)
                 }
             }
         }
@@ -56,6 +58,7 @@ class MainActivity : ComponentActivity() {
                 Log.d(TAG, "repeatOnLifecycle -> STARTED")
                 viewModel.galleryItems.collect { items ->
                     Log.d(TAG, "Response received: $items")
+                    viewMpdel.photos = items
                 }
             }
         }
