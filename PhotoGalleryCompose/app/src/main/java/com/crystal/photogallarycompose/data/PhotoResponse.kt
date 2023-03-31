@@ -1,4 +1,4 @@
-package com.example.photogallarycompose.data
+package com.crystal.photogallarycompose.data
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

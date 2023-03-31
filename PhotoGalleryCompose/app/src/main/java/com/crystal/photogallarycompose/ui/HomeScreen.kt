@@ -1,4 +1,4 @@
-package com.example.photogallarycompose.ui
+package com.crystal.photogallarycompose.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -12,8 +12,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.photogallarycompose.R
-import com.example.photogallarycompose.ui.theme.PhotogallaryComposeTheme
+import com.crystal.photogallarycompose.R
+import com.crystal.photogallarycompose.ui.theme.PhotogallaryComposeTheme
 
 private const val TAG = "PhotoHomeScreen"
 

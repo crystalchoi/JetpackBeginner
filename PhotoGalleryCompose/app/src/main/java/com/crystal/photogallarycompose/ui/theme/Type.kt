@@ -1,4 +1,4 @@
-package com.example.photogallarycompose.ui.theme
+package com.crystal.photogallarycompose.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

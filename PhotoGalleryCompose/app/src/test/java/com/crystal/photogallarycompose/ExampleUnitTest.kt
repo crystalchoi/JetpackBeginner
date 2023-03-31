@@ -1,4 +1,4 @@
-package com.example.photogallarycompose
+package com.crystal.photogallarycompose
 
 import org.junit.Test
 

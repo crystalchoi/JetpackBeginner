@@ -1,8 +1,8 @@
-package com.example.photogallarycompose
+package com.crystal.photogallarycompose
 
 import android.util.Log
-import com.example.photogallarycompose.api.FlickrApi
-import com.example.photogallarycompose.data.GalleryItem
+import com.crystal.photogallarycompose.api.FlickrApi
+import com.crystal.photogallarycompose.data.GalleryItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -26,6 +26,6 @@ class PhotoRepository {
         flickrApi = retrofit.create()
     }
 
-//    suspend fun fetchContents() = flickrApi.fetchContents()
+    suspend fun fetchContents() = flickrApi.fetchContents()
     suspend fun fetchPhotos(): List<GalleryItem> = flickrApi.fetchPhotos().photos.galleryItems
 }

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.photogallarycompose'
+    namespace 'com.crystal.photogallarycompose'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.photogallarycompose"
+        applicationId "com.crystal.photogallarycompose"
         minSdk 21
         targetSdk 32
         versionCode 1
