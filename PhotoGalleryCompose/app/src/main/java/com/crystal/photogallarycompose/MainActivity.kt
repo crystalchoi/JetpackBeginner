@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.viewModelScope
 import com.crystal.photogallarycompose.data.GalleryItem
 import com.crystal.photogallarycompose.ui.HomeScreen
 import com.crystal.photogallarycompose.ui.PhotoCell
@@ -29,10 +30,12 @@ import kotlinx.coroutines.*
 private const val TAG = "PhotoGalleryMain"
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: PhotoGalleryViewModel by viewModels()
+//    private val viewModel: PhotoGalleryViewModel by viewModels()
 
     init {
-
+        lifecycleScope.launch {
+//
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +47,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen(viewModel.photos)
+//                    HomeScreen(viewModel.galleryItems.value)
+
                 }
             }
         }
@@ -54,13 +58,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                Log.d(TAG, "repeatOnLifecycle -> STARTED")
-                viewModel.galleryItems.collect { items ->
-                    Log.d(TAG, "Response received: $items")
-                    viewMpdel.photos = items
-                }
+            try {
+                val response =  PhotoRepository().fetchContents()
+//                val response =  PhotoRepository.fetchPhotos()
+                Log.d(TAG, "Response received: $response")
+            } catch(e: Exception) {
+
             }
+//            repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                Log.d(TAG, "repeatOnLifecycle -> STARTED")
+//                viewModel.galleryItems.collect { items ->
+//                    Log.d(TAG, "Response received: $items")
+////                    viewMpdel.photos = items
+//                }
+//            }
         }
 
         return super.onCreateView(name, context, attrs)

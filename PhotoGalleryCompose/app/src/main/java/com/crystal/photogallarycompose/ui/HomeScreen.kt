@@ -61,19 +61,20 @@ fun PhotoCell(item: GalleryItem, modifier: Modifier = Modifier) {
                 contentScale = ContentScale.Fit,
             )
 //            AsyncImage(
-//                model = "https://example.com/image.jpg",
+////                model = "https://example.com/image.jpg",
+//                model = item.url,
 //                contentDescription = null
 //            )
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(item.url)
-                    .crossfade(true)
-                    .build(),
-                placeholder = painterResource(R.drawable.ic_android),
-                contentDescription = item.title,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.clip(CircleShape)
-            )
+//            AsyncImage(
+//                model = ImageRequest.Builder(LocalContext.current)
+//                    .data(item.url)
+//                    .crossfade(true)
+//                    .build(),
+//                placeholder = painterResource(R.drawable.ic_android),
+//                contentDescription = item.title,
+//                contentScale = ContentScale.Crop,
+//                modifier = Modifier.clip(CircleShape)
+//            )
         }
     }
 

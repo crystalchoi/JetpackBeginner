@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 
 private const val TAG = "PhotoGalleryViewModel"
 class PhotoGalleryViewModel : ViewModel() {
-    var uiState: PhotoGalleryUiState by mutableStateOf(PhotoGalleryUiState.Loading)
-        private set
+//    var uiState: PhotoGalleryUiState by mutableStateOf(PhotoGalleryUiState.Loading)
+//        private set
 
     private val photoRepository = PhotoRepository()
     private val _galleryItems: MutableStateFlow<List<GalleryItem>> =
@@ -24,24 +24,24 @@ class PhotoGalleryViewModel : ViewModel() {
     val galleryItems: StateFlow<List<GalleryItem>>
         get() = _galleryItems.asStateFlow()
 
-//    var  photos: List<GalleryItem> = emptyList()
+    var  photos: List<GalleryItem> = emptyList()
 
     init {
         getPhotos()
     }
 
-    fun getPhotos() : PhotoGalleryUiState {
+    fun getPhotos()  {
         viewModelScope.launch {
-            uiState = PhotoGalleryUiState.Loading
-            uiState = try {
-//                Log.d(TAG, "viewModel -> Launch")
-//                val items = photoRepository.fetchPhotos()
-//                Log.d(TAG, "Items received: $items")
-//                _galleryItems.value = items
-                PhotoGalleryUiState.Success(photoRepository.fetchPhotos())
+//            uiState = PhotoGalleryUiState.Loading
+            try {
+                Log.d(TAG, "viewModel -> Launch")
+                val items = photoRepository.fetchPhotos()
+                Log.d(TAG, "Items received: ${items.size}")
+                _galleryItems.value = items
+//                    uiState = PhotoGalleryUiState.Success(items)
             } catch (ex: Exception) {
                 Log.e(TAG, "Failed to fetch gallery items", ex)
-                PhotoGalleryUiState.Error
+//                uiState = PhotoGalleryUiState.Error
             }
 
         }
@@ -49,10 +49,10 @@ class PhotoGalleryViewModel : ViewModel() {
 
 
 }
-
-
-sealed interface PhotoGalleryUiState {
-    data class Success(val photos: List<GalleryItem>) : PhotoGalleryUiState
-    object Loading : PhotoGalleryUiState
-    object Error : PhotoGalleryUiState
-}
+//
+//
+//sealed interface PhotoGalleryUiState {
+//    data class Success(val photos: List<GalleryItem>) : PhotoGalleryUiState
+//    object Loading : PhotoGalleryUiState
+//    object Error : PhotoGalleryUiState
+//}
