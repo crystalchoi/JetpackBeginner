@@ -55,20 +55,17 @@ fun PizzaBuilderScreen(modifier: Modifier = Modifier) {
 private fun ToppingsList(pizza: Pizza, onEditPizza: (Pizza)-> Unit, modifier: Modifier = Modifier)
 {
 
-    var showToppingPlacementDialog by remember { mutableStateOf(false) }
-    var currentTopping by remember { mutableStateOf(Topping.Basil) }
+    var currentTopping by rememberSaveable { mutableStateOf<Topping?>(null) }
 
-    if (showToppingPlacementDialog) {
-        ToppingPlacementDialog(topping = currentTopping
-            , onDismissRequest = {  showToppingPlacementDialog = false  }
+    currentTopping?.let { topping ->
+        ToppingPlacementDialog(topping = topping
+            , onDismissRequest = {  currentTopping = null  }
             , onToppingPlacementEdit = {
-                val newPizza = pizza.withTopping(topping = currentTopping, placement = it)
-                onEditPizza(newPizza)
-                showToppingPlacementDialog = false
+                onEditPizza(pizza.withTopping(topping = topping, placement = it))
+                currentTopping = null
             }
         )
     }
-
     LazyColumn (modifier = modifier) {
         items(Topping.values()) { topping ->
 
@@ -76,18 +73,14 @@ private fun ToppingsList(pizza: Pizza, onEditPizza: (Pizza)-> Unit, modifier: Mo
                 topping = topping,
                 placement = pizza.toppings[topping],
                 onCheckToggle = {
-                    currentTopping = topping
-                    val isOnPizza = pizza.toppings[topping] != null
-                    if (!isOnPizza) {
-                        showToppingPlacementDialog = true
+                    if (pizza.toppings[topping] == null) {
+                        currentTopping = topping
                     } else {
-                        val newPizza = pizza.withTopping(topping = topping, placement = null)
-                        onEditPizza(newPizza)
+                        onEditPizza(pizza.withTopping(topping = topping, placement = null))
                     }
                 },
                 onClickTopping = {
                     currentTopping = topping
-                    showToppingPlacementDialog = true
                 }
                 , modifier = modifier
             )
