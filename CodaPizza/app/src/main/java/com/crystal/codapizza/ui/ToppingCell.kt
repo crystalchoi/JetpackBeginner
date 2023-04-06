@@ -32,13 +32,16 @@ fun ToppingCell(
     Row(verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
 //            .background(Color.Cyan)
-            .clickable { onClickTopping() }
+            .clickable {
+                onClickTopping()
+            }
             .padding(vertical = 4.dp, horizontal = 16.dp)) {
         Checkbox(
             checked = (placement != null),
             onCheckedChange = { onClickTopping() }
         )
-        Column(modifier = Modifier.weight(1f, fill = true)
+        Column(modifier = Modifier
+            .weight(1f, fill = true)
             .padding(start = 4.dp)
         ) {
             Text(text = stringResource(id = topping.toppingName),

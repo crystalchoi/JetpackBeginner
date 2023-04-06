@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.toUpperCase
@@ -27,13 +28,15 @@ import java.text.NumberFormat
 @Composable
 fun PizzaBuilderScreen(modifier: Modifier = Modifier) {
 
-    var pizza by remember { mutableStateOf(Pizza()) }
+    var pizza by rememberSaveable{ mutableStateOf(Pizza()) }
 
     Column(
         modifier = modifier
 
     ) {
-        ToppingsList(pizza = pizza, onEditPizza = { pizza = it },
+        ToppingsList(pizza = pizza, onEditPizza = {
+            pizza = it
+                                                  },
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f, fill = true)
@@ -53,15 +56,39 @@ fun PizzaBuilderScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun ToppingsList(pizza: Pizza, onEditPizza: (Pizza)-> Unit, modifier: Modifier = Modifier)
 {
+
+    var showToppingPlacementDialog by rememberSaveable { mutableStateOf(false) }
+    var toppingForDialog by remember { mutableStateOf(Topping.Basil) }
+    var toppingPlacement by remember { mutableStateOf(ToppingPlacement.All) }
+
+    if (showToppingPlacementDialog) {
+        ToppingPlacementDialog(topping = toppingForDialog
+            , onDismissRequest = {  showToppingPlacementDialog = false  }
+            , onToppingPlacementEdit = {
+                toppingPlacement = it
+                showToppingPlacementDialog = false
+            }
+        )
+    }
+
     LazyColumn (modifier = modifier) {
         items(Topping.values()) { topping ->
+
             ToppingCell(
                 topping = topping,
                 placement = pizza.toppings[topping],
                 onClickTopping = {
-                    val isOnPizza = pizza.toppings[topping] != null
-                    val newPizza = pizza.withTopping(topping = topping,
-                        placement = if (isOnPizza) null else { ToppingPlacement.All })
+//                    val isOnPizza = pizza.toppings[topping] != null
+//                    if (!isOnPizza) {
+//                        showToppingPlacementDialog = true
+//                    }
+//                    val newPizza = pizza.withTopping(topping = topping,
+//                        placement = if (isOnPizza) null else { ToppingPlacement.All })
+//
+//                    onEditPizza(newPizza)
+                    showToppingPlacementDialog = true
+                    toppingForDialog = topping
+                    val newPizza = pizza.withTopping(topping = topping, placement = toppingPlacement)
                     onEditPizza(newPizza)
                 }
                 , modifier = modifier
