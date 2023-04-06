@@ -34,9 +34,7 @@ fun PizzaBuilderScreen(modifier: Modifier = Modifier) {
         modifier = modifier
 
     ) {
-        ToppingsList(pizza = pizza, onEditPizza = {
-            pizza = it
-                                                  },
+        ToppingsList(pizza = pizza, onEditPizza = { pizza = it },
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f, fill = true)
@@ -57,15 +55,15 @@ fun PizzaBuilderScreen(modifier: Modifier = Modifier) {
 private fun ToppingsList(pizza: Pizza, onEditPizza: (Pizza)-> Unit, modifier: Modifier = Modifier)
 {
 
-    var showToppingPlacementDialog by rememberSaveable { mutableStateOf(false) }
-    var toppingForDialog by remember { mutableStateOf(Topping.Basil) }
-    var toppingPlacement by remember { mutableStateOf(ToppingPlacement.All) }
+    var showToppingPlacementDialog by remember { mutableStateOf(false) }
+    var currentTopping by remember { mutableStateOf(Topping.Basil) }
 
     if (showToppingPlacementDialog) {
-        ToppingPlacementDialog(topping = toppingForDialog
+        ToppingPlacementDialog(topping = currentTopping
             , onDismissRequest = {  showToppingPlacementDialog = false  }
             , onToppingPlacementEdit = {
-                toppingPlacement = it
+                val newPizza = pizza.withTopping(topping = currentTopping, placement = it)
+                onEditPizza(newPizza)
                 showToppingPlacementDialog = false
             }
         )
@@ -77,19 +75,19 @@ private fun ToppingsList(pizza: Pizza, onEditPizza: (Pizza)-> Unit, modifier: Mo
             ToppingCell(
                 topping = topping,
                 placement = pizza.toppings[topping],
+                onCheckToggle = {
+                    currentTopping = topping
+                    val isOnPizza = pizza.toppings[topping] != null
+                    if (!isOnPizza) {
+                        showToppingPlacementDialog = true
+                    } else {
+                        val newPizza = pizza.withTopping(topping = topping, placement = null)
+                        onEditPizza(newPizza)
+                    }
+                },
                 onClickTopping = {
-//                    val isOnPizza = pizza.toppings[topping] != null
-//                    if (!isOnPizza) {
-//                        showToppingPlacementDialog = true
-//                    }
-//                    val newPizza = pizza.withTopping(topping = topping,
-//                        placement = if (isOnPizza) null else { ToppingPlacement.All })
-//
-//                    onEditPizza(newPizza)
+                    currentTopping = topping
                     showToppingPlacementDialog = true
-                    toppingForDialog = topping
-                    val newPizza = pizza.withTopping(topping = topping, placement = toppingPlacement)
-                    onEditPizza(newPizza)
                 }
                 , modifier = modifier
             )
@@ -109,7 +107,6 @@ private fun OrderButton(pizza: Pizza, onClickButton: () -> Unit,
         val currencyFormatter = remember { NumberFormat.getCurrencyInstance() }
         val price = currencyFormatter.format(pizza.price)
         Text(
-
             text = stringResource(R.string.place_order_button, price)
                 .toUpperCase(Locale.current)
             // .upperCase()  ??

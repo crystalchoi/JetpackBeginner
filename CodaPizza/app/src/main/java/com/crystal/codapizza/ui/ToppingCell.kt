@@ -26,9 +26,10 @@ fun ToppingCell(
     topping: Topping,
     placement: ToppingPlacement?,
     modifier: Modifier = Modifier,
+    onCheckToggle: ()-> Unit,
     onClickTopping: () -> Unit
 ) {
-    Log.d("ToppingCell", "Called ToppingCell for $topping")
+//    Log.d("ToppingCell", "Called ToppingCell for $topping")
     Row(verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
 //            .background(Color.Cyan)
@@ -38,7 +39,7 @@ fun ToppingCell(
             .padding(vertical = 4.dp, horizontal = 16.dp)) {
         Checkbox(
             checked = (placement != null),
-            onCheckedChange = { onClickTopping() }
+            onCheckedChange = { onCheckToggle() }
         )
         Column(modifier = Modifier
             .weight(1f, fill = true)
@@ -62,6 +63,7 @@ private fun ToppingCellPreviewNotOnPizza() {
         topping = Topping.Pepperoni,
         placement = null,
         onClickTopping = {},
+        onCheckToggle = {}
     ) }
 
 
@@ -73,6 +75,7 @@ private fun ToppingCellPreviewOnLeftHalf() {
         topping = Topping.Pepperoni,
         placement = ToppingPlacement.Left,
         onClickTopping = {},
+        onCheckToggle = {}
     )
 }
 
