@@ -23,3 +23,19 @@ enum class Topping(
         toppingName = R.string.topping_pineapple
     )
 }
+
+
+enum class DowSize(
+    @StringRes val dowName: Int
+){
+    Large(R.string.dow_size_large),
+    Medium(
+        dowName = R.string.dow_size_medium
+    ),
+    Small(
+        dowName = R.string.dow_size_small
+    ),
+    Family(
+        dowName = R.string.dow_size_family
+    ),
+}

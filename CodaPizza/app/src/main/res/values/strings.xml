@@ -4,6 +4,10 @@
     <string name="placement_left">Left half</string>
     <string name="placement_right">Right half</string>
     <string name="placement_all">Whole pizza</string>
+    <string name="dow_size_family">Family</string>
+    <string name="dow_size_large">large</string>
+    <string name="dow_size_medium">Medium</string>
+    <string name="dow_size_small">Small</string>
     <string name="topping_basil">Basil</string>
     <string name="topping_mushroom">Mushrooms</string>
     <string name="topping_olive">Olives</string>

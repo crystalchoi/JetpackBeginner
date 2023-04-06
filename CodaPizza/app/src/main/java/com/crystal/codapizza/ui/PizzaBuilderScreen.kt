@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -14,10 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.style.TextAlign
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.crystal.codapizza.R
+import com.crystal.codapizza.data.DowSize
 import com.crystal.codapizza.data.Pizza
 import com.crystal.codapizza.data.Topping
 import com.crystal.codapizza.data.ToppingPlacement
@@ -34,6 +38,21 @@ fun PizzaBuilderScreen(modifier: Modifier = Modifier) {
         modifier = modifier
 
     ) {
+
+        DropdownMenu(expanded = false, onDismissRequest = { /*TODO*/ }) {
+            DowSize.values().forEach { dowSize ->
+                Text(
+                    text = stringResource(id = dowSize.dowName),
+                    style = MaterialTheme.typography.subtitle1,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .weight(1f)
+
+                )
+            }
+        }
+
         ToppingsList(pizza = pizza, onEditPizza = { pizza = it },
             modifier = Modifier
                 .fillMaxWidth()

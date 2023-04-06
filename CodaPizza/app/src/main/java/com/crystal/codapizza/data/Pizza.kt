@@ -5,7 +5,9 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class Pizza(val toppings: Map<Topping, ToppingPlacement> = emptyMap()) : Parcelable {
+data class Pizza(val toppings: Map<Topping, ToppingPlacement> = emptyMap()
+                , val size: DowSize = DowSize.Medium
+) : Parcelable {
     fun withTopping(topping: Topping, placement: ToppingPlacement?) : Pizza {
         return copy(toppings = if (placement == null) {
           toppings - topping
