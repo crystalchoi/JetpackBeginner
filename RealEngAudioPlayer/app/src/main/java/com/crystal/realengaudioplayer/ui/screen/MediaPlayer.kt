@@ -29,6 +29,9 @@ import com.crystal.realengaudioplayer.ui.theme.RealEngAudioPlayerTheme
 private const val sample_url = "https://v1.wisdomhouse.co.kr/mp3/realenglish/realenglish001.mp3"
 //private const val sample_url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 //  https://developer.android.com/codelabs/exoplayer-intro?hl=ko#2  코드랩의 ExoPlayer 참고해서... Exo버전 만들기
+//  https://developer.android.com/guide/topics/media/exoplayer/hello-world Media3 ExoPlayer 버전
+//   https://dottutorials.net/exoplayer-play-online-offline-audio-video-android/#brief-into-of-expplayer
+
 @Composable
 fun PlaySampleAudio(context: Context) {
 
