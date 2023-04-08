@@ -1,6 +1,7 @@
 package com.crystal.codapizza.ui
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.text.intl.Locale
@@ -34,6 +36,8 @@ fun PizzaBuilderScreen(modifier: Modifier = Modifier) {
         modifier = modifier
 
     ) {
+
+
         ToppingsList(pizza = pizza, onEditPizza = {
             pizza = it
                                                   },
@@ -72,6 +76,10 @@ private fun ToppingsList(pizza: Pizza, onEditPizza: (Pizza)-> Unit, modifier: Mo
     }
 
     LazyColumn (modifier = modifier) {
+        item {
+            PizzaHeroImage(pizza = pizza, modifier = Modifier.padding(16.dp))
+        }
+
         items(Topping.values()) { topping ->
 
             ToppingCell(
@@ -100,11 +108,16 @@ private fun ToppingsList(pizza: Pizza, onEditPizza: (Pizza)-> Unit, modifier: Mo
 
 @Composable
 private fun OrderButton(pizza: Pizza, onClickButton: () -> Unit,
-    modifier: Modifier = Modifier ) {
+    modifier: Modifier = Modifier )
+{
+    val context = LocalContext.current
+
     Button(
         modifier = modifier,
         onClick = {
             onClickButton()
+            Toast.makeText(context, R.string.order_placed_toast, Toast.LENGTH_LONG)
+                .show()
         }) {
         val currencyFormatter = remember { NumberFormat.getCurrencyInstance() }
         val price = currencyFormatter.format(pizza.price)
