@@ -63,9 +63,9 @@ fun PizzaBuilderScreen(modifier: Modifier = Modifier) {
             .padding(16.dp),
             onClickButton = {
                 Log.d("Pizza", "$pizza.price")
-            })
+            }
+        )
     }
-
 }
 
 
