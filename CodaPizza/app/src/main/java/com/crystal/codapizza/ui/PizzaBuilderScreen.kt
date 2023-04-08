@@ -86,6 +86,10 @@ private fun ToppingsList(pizza: Pizza, onEditPizza: (Pizza)-> Unit, modifier: Mo
         )
     }
     LazyColumn (modifier = modifier) {
+        
+        item {
+            PizzaHeroImage(pizza = pizza)
+        }
         items(Topping.values()) { topping ->
 
             ToppingCell(

@@ -41,9 +41,13 @@ fun ToppingPlacementDialog(topping: Topping,
                             Text(
                                 text = stringResource(id = placement.label),
                                 style = MaterialTheme.typography.subtitle1,
-                                textAlign = TextAlign.Center,
+                                textAlign = when (placement) {
+                                    ToppingPlacement.Left -> TextAlign.Start
+                                    ToppingPlacement.Right -> TextAlign.End
+                                    ToppingPlacement.All -> TextAlign.Center
+                                                             },
                                 modifier = Modifier
-                                    .padding(4.dp)
+                                    .padding(top = 4.dp, bottom = 4.dp, start = 60.dp, end = 60.dp)
                                     .weight(1f)
 
                             )
