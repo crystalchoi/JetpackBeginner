@@ -16,6 +16,7 @@
 
 package com.example.inventory.ui.item
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,6 +48,7 @@ import com.example.inventory.R
 import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
+import kotlinx.coroutines.launch
 
 object ItemDetailsDestination : NavigationDestination {
     override val route = "item_details"
@@ -64,6 +66,7 @@ fun ItemDetailsScreen(
 ) {
 
     val uiState = viewModel.uiState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -88,8 +91,19 @@ fun ItemDetailsScreen(
     ) { innerPadding ->
         ItemDetailsBody(
             itemUiState = uiState.value,  // ItemUiState(),
-            onSellItem = {  },
-            onDelete = {  },
+            onSellItem = {
+                // EditItem ???
+                coroutineScope.launch {
+                    viewModel.sellItem(uiState = uiState.value)
+                    navigateBack()
+                }
+            },
+            onDelete = {
+                coroutineScope.launch {
+                    viewModel.deleteItem()
+                    navigateBack()
+                }
+            },
             modifier = modifier.padding(innerPadding)
         )
     }
@@ -109,11 +123,19 @@ private fun ItemDetailsBody(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
-        ItemInputForm(itemUiState = itemUiState, enabled = false)
+        var currentQuantityChanged by rememberSaveable() { mutableStateOf(false) }
+
+        Log.d("ItemInputForm", "quantity=${itemUiState.quantity}")
+
+        ItemInputForm(itemUiState = itemUiState
+            , onValueChange = { currentQuantityChanged = (itemUiState.quantity != it.quantity)
+                              }
+            , enabled = true)
         Button(
             onClick = onSellItem,
             modifier = Modifier.fillMaxWidth(),
-            enabled = itemUiState.actionEnabled
+//            enabled = itemUiState.actionEnabled
+            enabled = if (currentQuantityChanged) true else itemUiState.actionEnabled
         ) {
             Text(stringResource(R.string.sell))
         }

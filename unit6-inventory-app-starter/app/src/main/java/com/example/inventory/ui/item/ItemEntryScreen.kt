@@ -16,6 +16,7 @@
 
 package com.example.inventory.ui.item
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,8 +26,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -111,6 +112,12 @@ fun ItemInputForm(
     onValueChange: (ItemUiState) -> Unit = {},
     enabled: Boolean = true
 ) {
+
+    var currentQuantity by remember { mutableStateOf<String?>(null) }
+
+//    currentQuantity = itemUiState.quantity
+    Log.d("ItemInputForm", "quantity=${itemUiState.quantity} currentQuantity=$currentQuantity")
+
     Column(modifier = modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         OutlinedTextField(
             value = itemUiState.name,
@@ -130,9 +137,15 @@ fun ItemInputForm(
             enabled = enabled,
             singleLine = true
         )
+
+
+
         OutlinedTextField(
-            value = itemUiState.quantity,
-            onValueChange = { onValueChange(itemUiState.copy(quantity = it)) },
+//            value = itemUiState.quantity,
+            value = currentQuantity ?: itemUiState.quantity,
+            onValueChange = {
+                currentQuantity = it
+                onValueChange(itemUiState.copy(quantity = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             label = { Text(stringResource(R.string.quantity_req)) },
             modifier = Modifier.fillMaxWidth(),

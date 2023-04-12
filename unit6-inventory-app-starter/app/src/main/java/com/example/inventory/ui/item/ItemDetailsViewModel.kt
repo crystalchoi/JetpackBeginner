@@ -33,8 +33,32 @@ class ItemDetailsViewModel(
     private val itemId: Int = checkNotNull(savedStateHandle[ItemDetailsDestination.itemIdArg])
 
     val uiState: StateFlow<ItemUiState> = itemsRepository.getItemStream(itemId)
-        .filterNotNull().map { it.toItemUiState()}.stateIn(scope = viewModelScope, started = SharingStarted.WhileSubscribed(
+        .filterNotNull().map { it.toItemUiState()}
+        .stateIn(scope = viewModelScope, started = SharingStarted.WhileSubscribed(
             TIMEOUT_MILLIS), initialValue = ItemUiState())
+
+
+    suspend fun sellItem(uiState: ItemUiState) {
+        val changedUiState = uiState.copy()
+        try {
+            if (changedUiState.isValid()) {
+                itemsRepository.updateItem(changedUiState.toItem())
+            }
+        } catch(e: Exception) {
+
+        }
+    }
+
+    suspend fun deleteItem() {
+        try {
+
+            if (uiState.value.isValid()) {
+                itemsRepository.deleteItem(uiState.value.toItem())
+            }
+        } catch (e: Exception) {
+
+        }
+    }
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
