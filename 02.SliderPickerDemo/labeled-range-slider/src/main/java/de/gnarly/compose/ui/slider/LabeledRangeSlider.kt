@@ -231,7 +231,11 @@ internal fun <T> DrawScope.drawStepMarkersAndLabels(
 				if (text.length > 3) {
 					text.substring(0, 2)
 				} else {
-					text
+					if (index % 2 == 1) {
+						" "
+					}
+					else
+						text
 				}
 			}
 			it.nativeCanvas.drawText(

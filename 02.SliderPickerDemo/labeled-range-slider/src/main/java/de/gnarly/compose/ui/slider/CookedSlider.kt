@@ -12,8 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 
@@ -34,7 +36,7 @@ fun <T : Number> StartOffsetSlider(
 
     var touchInteractionState by remember { mutableStateOf<TouchInteraction>(TouchInteraction.NoInteraction) }
     var moveLeft by remember { mutableStateOf(false) }
-    var moveRight by remember { mutableStateOf(false) }
+//    var moveRight by remember { mutableStateOf(false) }
 
     var composableSize by remember { mutableStateOf(IntSize(0, 0)) }
 
@@ -78,8 +80,8 @@ fun <T : Number> StartOffsetSlider(
     ) {
         drawRoundRect(
             color = sliderConfig.barColor,
-            topLeft = Offset(barXStart, barYStart),
-            size = Size(barWidth, sliderConfig.barHeightPx),
+            topLeft = Offset(barXStart, barYStart + sliderConfig.backgroundBarTopOffset),
+            size = Size(barWidth, sliderConfig.backgroundBarHeightPx),
             cornerRadius = barCornerRadius
         )
 
@@ -104,18 +106,18 @@ fun <T : Number> StartOffsetSlider(
             sliderConfig
         )
 
-        drawCircleWithShadow(
-            rightCirclePosition,
-            moveRight,
-            sliderConfig
-        )
+//        drawCircleWithShadow(
+//            rightCirclePosition,
+//            moveRight,
+//            sliderConfig
+//        )
     }
 
     handleTouch(
         leftCirclePosition = leftCirclePosition,
         rightCirclePosition = rightCirclePosition,
         moveLeft = moveLeft,
-        moveRight = moveRight,
+        moveRight =  false,  //moveRight,
         stepXCoordinates = stepXCoordinates,
         stepSpacing = stepSpacing,
         touchInteraction = touchInteractionState,
@@ -124,10 +126,18 @@ fun <T : Number> StartOffsetSlider(
             moveLeft = move
         },
         updateRight = { position, move ->
-            rightCirclePosition = position
-            moveRight = move
+//            rightCirclePosition = position
+//            moveRight = move
         },
         onTouchInteractionChanged = { touchInteractionState = it },
         onRangeIdxChanged = { lowerBoundIdx, upperBoundIdx -> onRangeChanged(steps[lowerBoundIdx], steps[upperBoundIdx]) }
     )
+}
+
+
+
+@Preview
+@Composable
+fun StartOffsetSliderPreview() {
+    StartOffsetSlider<Int>(0, 100, (0..100).step(10).toList(), { _, _ -> })
 }

@@ -39,8 +39,11 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.PackageManagerCompat
 import androidx.core.content.PackageManagerCompat.LOG_TAG
 import com.example.sliderpickerdemo.ui.DrawSimpleCircleTest
+import com.example.sliderpickerdemo.ui.LabeledRangeSliderDemo
+import com.example.sliderpickerdemo.ui.StartOffsetSliderDemo
 import com.example.sliderpickerdemo.ui.theme.SliderPickerDemoTheme
 import de.gnarly.compose.ui.slider.LabeledRangeSlider
+import de.gnarly.compose.ui.slider.StartOffsetSlider
 
 const val WEATHER_CARD_TAG = "WeatherCardTag"
 const val SLIDER_TAG = "SliderTag"
@@ -57,7 +60,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Log.i(LOG_TAG, "show me LOG_TAG")
 //                    SettingsScreen()
-                    LabeledRangeSliderDemo()
+                    StartOffsetSliderDemo()
+//                    LabeledRangeSliderDemo()
                 }
             }
         }
@@ -136,44 +140,8 @@ private fun customSliderColors(): SliderColors = SliderDefaults.colors(
     inactiveTickColor = Color.Transparent
 )
 
-@Composable
-fun LabeledRangeSliderDemo() {
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
 
-        val steps = (0..50).step(10).toList()
-        var lowerBound by rememberSaveable { mutableStateOf(steps[1]) }
-        var upperBound by rememberSaveable { mutableStateOf(steps[steps.size - 2]) }
-
-        LabeledRangeSlider(
-            selectedLowerBound = lowerBound,
-            selectedUpperBound = upperBound,
-            steps = steps,
-            onRangeChanged = { lower, upper ->
-                lowerBound = lower
-                upperBound = upper
-                Log.i("TAG", "Updated selected range ${lowerBound..upperBound}")
-            },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.size(16.dp))
-        Divider()
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Text(
-            text = "The selected range is ${lowerBound..upperBound}",
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-
-    }
-
-
-
-}
-
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 400, heightDp = 600)
 @Composable
 fun SettingsScreenPreview() {
     SliderPickerDemoTheme {

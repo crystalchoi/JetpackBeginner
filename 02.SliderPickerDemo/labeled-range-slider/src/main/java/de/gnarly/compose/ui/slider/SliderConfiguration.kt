@@ -10,10 +10,17 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+private val CustomColor2 = Color(0xFFCB969B)   // from Theme
+private val CustomColor1 = Color(0xFFAB669B)   // from Theme
+private val md_theme_light_secondary = Color(0xFF4F616E)
+private val md_theme_dark_secondary = Color(0xFFB7C9D8)
+private val md_theme_dark_inversePrimary = Color(0xFF00658F)
 data class SliderConfiguration(
 	val barHeight: Dp = 12.dp,
+	val backgroundBarHeight: Dp = 8.dp,
 	val barColor: Color = Color.LightGray,
-	val barColorInRange: Color = Color.Cyan,
+	val barColorInRange: Color = md_theme_dark_secondary,
+//	val barColorInRange: Color = Color.Cyan,
 	val barCornerRadius: Dp = 6.dp,
 	val touchCircleRadius: Dp = 16.dp,
 	val touchCircleShadowSize: Dp = 4.dp,
@@ -27,6 +34,13 @@ data class SliderConfiguration(
 ) {
 	context(Density) internal val barHeightPx: Float
 		get() = barHeight.toPx()
+
+	context(Density) internal val backgroundBarHeightPx: Float
+		get() = backgroundBarHeight.toPx()
+
+	context(Density) internal val backgroundBarTopOffset: Float
+		get() = (barHeightPx / 2 - backgroundBarHeightPx /2)
+
 
 	context(Density) internal val barCornerRadiusPx
 		get() = barCornerRadius.toPx()
