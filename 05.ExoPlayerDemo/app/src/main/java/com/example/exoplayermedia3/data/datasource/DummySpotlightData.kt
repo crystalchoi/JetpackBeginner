@@ -54,6 +54,16 @@ object DummySpotlightData {
             likesCount = 1890,
             comment = "Kerjaan di tengah hutan",
             commentsCount = 232
+        ),
+        Spotlight(
+            id = 6,
+            video = "castle.mp4",
+            userImage = "https://generated.photos/vue-static/home/hero/2.png",
+            userName = "David Dulkader",
+            isLiked = true,
+            likesCount = 1890,
+            comment = "Kerjaan di tengah hutan",
+            commentsCount = 232
         )
 
     )
@@ -76,5 +86,8 @@ data class Spotlight(
      */
     fun getVideoUrl(): Uri {
         return Uri.parse("asset:///$video")
+    }
+    fun getAudioUrl(): Uri {
+        return Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/play.mp3")
     }
 }
